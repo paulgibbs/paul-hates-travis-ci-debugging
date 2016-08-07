@@ -12,7 +12,14 @@ module.exports = function( grunt ) {
 		},
 
 		exec: {
-			debug: {
+			pathpath: {
+				command: 'echo $PATH',
+				stdout: false,
+				callback: function (error, stdout) {
+					grunt.log.write( 'echo path: ' + stdout );
+				}
+			},
+			phpunit: {
 				command: 'which phpunit',
 				stdout: false,
 				callback: function (error, stdout) {
@@ -23,5 +30,5 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'default', ['exec:debug'] );
+	grunt.registerTask( 'default', ['exec'] );
 };

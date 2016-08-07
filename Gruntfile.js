@@ -23,7 +23,7 @@ module.exports = function( grunt ) {
 
 
 			codecoverage: {
-				command: 'phpdbg -qrr $(which phpunit) -c codecoverage.xml --coverage-clover clover.xml',
+				command: 'phpdbg -qrr phpunit -c codecoverage.xml --coverage-clover clover.xml',
 				callback: function (error, stdout) {
 					grunt.log.write( 'whtf cc: ' + stdout );
 				}

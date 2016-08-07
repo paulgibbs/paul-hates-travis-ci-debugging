@@ -22,7 +22,7 @@ module.exports = function( grunt ) {
 			},
 
 			codecoverage: {
-				command: 'cd ~ && phpdbg -qrr phpunit -c /tmp/wordpress/codecoverage.xml --coverage-clover clover.xml'
+				command: 'phpdbg -qrr phpunit -c /tmp/wordpress/codecoverage.xml --coverage-clover /tmp/wordpress/clover.xml'
 			}
 		}
 	});

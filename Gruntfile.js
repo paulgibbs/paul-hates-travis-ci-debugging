@@ -13,13 +13,13 @@ module.exports = function( grunt ) {
 					grunt.log.write( 'echo path: ' + stdout );
 				}
 			},
-			phpunit: {
+			/*phpunit: {
 				command: 'phpunit -v',
 				stdout: false,
 				callback: function (error, stdout) {
 					grunt.log.write( 'which phpunit: ' + stdout );
 				}
-			},
+			},*/
 
 			codecoverage: {
 				command: 'phpdbg -qrr phpunit -c /tmp/wordpress/codecoverage.xml --coverage-clover /tmp/wordpress/clover.xml'

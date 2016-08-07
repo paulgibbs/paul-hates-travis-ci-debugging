@@ -4,7 +4,7 @@ php:
   - 7.0
 
 before_install:
-  - export ORIG_DIR=$(pwd)
+  - pwd
   - mkdir -p /tmp/wordpress
   - cd /tmp/wordpress
   - git clone https://github.com/paulgibbs/paul-hates-travis-ci-debugging.git .
@@ -24,4 +24,4 @@ before_script:
 script:
   - grunt
   - cd $ORIG_DIR
-  - phpdbg -qrr "phpunit -c codecoverage.xml --coverage-clover clover.xml"
+  - phpdbg -qrr "/home/travis/.phpenv/shims/phpunit -c codecoverage.xml --coverage-clover clover.xml"

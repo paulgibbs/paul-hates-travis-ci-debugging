@@ -4,6 +4,8 @@ php:
   - 7.0
 
 before_install:
+  - mkdir /tmp/wordpress
+  - cd /tmp/wordpress
   - phpenv config-rm xdebug.ini
   - node --version
   - nvm install 4
@@ -12,8 +14,6 @@ before_install:
   - npm --version
   - mysql --version
   - phpenv versions
-  - mkdir /tmp/wordpress
-  - cd /tmp/wordpress
 
 before_script:
   - npm install

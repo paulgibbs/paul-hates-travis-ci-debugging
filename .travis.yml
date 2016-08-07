@@ -17,4 +17,4 @@ before_script:
   - npm install
 
 # Run tests
-script: grunt $BP_TRAVISCI
+script: grunt

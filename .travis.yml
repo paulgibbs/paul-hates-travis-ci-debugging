@@ -12,6 +12,8 @@ before_install:
   - npm --version
   - mysql --version
   - phpenv versions
+  - mkdir /tmp/wordpress
+  - cd /tmp/wordpress
 
 before_script:
   - npm install

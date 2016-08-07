@@ -12,36 +12,26 @@ module.exports = function( grunt ) {
 		},
 
 		exec: {
-			/*pathpath: {
-				cmd: 'echo $PATH',
+			pathpath: {
+				command: 'echo $PATH',
 				stdout: false,
 				callback: function (error, stdout) {
 					grunt.log.write( 'echo path: ' + stdout );
 				}
 			},
 			phpunit: {
-				cmd: 'which phpunit',
+				command: 'which phpunit',
 				stdout: false,
 				callback: function (error, stdout) {
 					grunt.log.write( 'which phpunit: ' + stdout );
 				}
-			},*/
+			},
+
+
 			codecoverage: {
-				cmd: 'phpdbg',
-				args: ['-qrr', 'phpunit', '-c', 'codecoverage.xml', '--coverage-clover', 'clover.xml' ],
-				callback: function (error, stdout) {
-					grunt.log.write( 'codecoverage: ' + error + ' <--> ' + stdout );
-				}
+				command: 'phpdbg -qrr phpunit -c codecoverage.xml --coverage-clover clover.xml'
 			}
 		}
-	});
-
-	grunt.registerMultiTask( 'exec', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
-		grunt.util.spawn( {
-			args: this.data.args,
-			cmd:  this.data.cmd,
-			opts: { stdio: 'inherit' }
-		}, this.async() );
 	});
 
 	// Register tasks.

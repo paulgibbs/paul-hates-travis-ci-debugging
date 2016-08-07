@@ -23,7 +23,7 @@ module.exports = function( grunt ) {
 
 
 			codecoverage: {
-				command: 'phpdbg -qrr /home/travis/.phpenv/shims/phpunit -c codecoverage.xml --coverage-clover clover.xml'
+				command: 'phpdbg -qrr $(which phpunit) -c codecoverage.xml --coverage-clover clover.xml'
 			}
 		}
 	});

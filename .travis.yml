@@ -4,6 +4,7 @@ php:
   - 7.0
 
 before_install:
+  - pwd
   - mkdir -p /tmp/wordpress
   - cd /tmp/wordpress
   - git clone https://github.com/paulgibbs/paul-hates-travis-ci-debugging.git .

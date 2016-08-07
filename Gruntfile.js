@@ -36,6 +36,14 @@ module.exports = function( grunt ) {
 		}
 	});
 
+	grunt.registerMultiTask( 'exec', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
+		grunt.util.spawn( {
+			args: this.data.args,
+			cmd:  this.data.cmd,
+			opts: { stdio: 'inherit' }
+		}, this.async() );
+	});
+
 	// Register tasks.
 	grunt.registerTask( 'default', ['exec'] );
 };

@@ -24,4 +24,4 @@ before_script:
 script:
   - grunt
   - cd $ORIG_DIR
-  - phpdbg -qrr "/home/travis/.phpenv/shims/phpunit -c codecoverage.xml --coverage-clover clover.xml"
+  - phpdbg -qrr /home/travis/.phpenv/shims/phpunit -c codecoverage.xml --coverage-clover clover.xml

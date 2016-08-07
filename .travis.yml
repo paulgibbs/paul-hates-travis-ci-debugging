@@ -5,9 +5,8 @@ php:
 
 before_install:
   - mkdir -p /tmp/wordpress
-  - mv .* /tmp/wordpress
-  - mv * /tmp/wordpress
   - cd /tmp/wordpress
+  - git clone git@github.com:paulgibbs/paul-hates-travis-ci-debugging.git .
   - phpenv config-rm xdebug.ini
   - node --version
   - nvm install 4

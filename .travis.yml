@@ -23,5 +23,5 @@ before_script:
 # Run tests
 script:
   - grunt
-  - cd ORIG_DIR
+  - cd $ORIG_DIR
   - phpdbg -qrr phpunit -c codecoverage.xml --coverage-clover clover.xml

@@ -16,7 +16,7 @@ module.exports = function( grunt ) {
 				command: 'which phpunit',
 				stdout: false,
 				callback: function (error, stdout) {
-					grunt.config.log( 'which phpunit: ' + stdout );
+					grunt.log.write( 'which phpunit: ' + stdout );
 				}
 			}
 		}

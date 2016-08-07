@@ -13,14 +13,14 @@ module.exports = function( grunt ) {
 
 		exec: {
 			pathpath: {
-				command: 'echo $PATH',
+				cmd: 'echo $PATH',
 				stdout: false,
 				callback: function (error, stdout) {
 					grunt.log.write( 'echo path: ' + stdout );
 				}
 			},
 			phpunit: {
-				command: 'which phpunit',
+				cmd: 'which phpunit',
 				stdout: false,
 				callback: function (error, stdout) {
 					grunt.log.write( 'which phpunit: ' + stdout );

@@ -4,12 +4,6 @@ module.exports = function( grunt ) {
 
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
-		phpunit: {
-			'codecoverage': {
-				cmd: 'phpdbg',
-				args: ['-qrr', grunt.config.get( 'BP_PHPUNIT' ), '-c', 'codecoverage.xml', '--coverage-clover', 'clover.xml' ]
-			}
-		},
 
 		exec: {
 			pathpath: {
@@ -35,5 +29,5 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'default', ['exec'] );
+	grunt.registerTask( 'default', ['exec:codecoverage'] );
 };

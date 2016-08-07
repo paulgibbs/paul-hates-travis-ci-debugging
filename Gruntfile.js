@@ -24,7 +24,9 @@ module.exports = function( grunt ) {
 
 			codecoverage: {
 				command: 'phpdbg -qrr  phpunit) -c codecoverage.xml --coverage-clover clover.xml',
-				shell: '/bin/bash',
+				options: {
+					shell: '/bin/bash'
+				},
 				callback: function (error, stdout) {
 					grunt.log.write( 'whtf cc: ' + stdout );
 				}

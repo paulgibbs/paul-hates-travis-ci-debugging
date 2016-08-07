@@ -5,7 +5,8 @@ php:
 
 before_install:
   - mkdir -p /tmp/wordpress
-  - mv -R * /tmp/wordpress
+  - mv .* /tmp/wordpress
+  - mv * /tmp/wordpress
   - cd /tmp/wordpress
   - phpenv config-rm xdebug.ini
   - node --version

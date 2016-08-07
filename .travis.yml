@@ -4,10 +4,9 @@ php:
   - 7.0
 
 before_install:
-  - plugin_slug=$(basename $(pwd))
-  - cd ..
-  - mkdir /tmp/wordpress
-  - mv $plugin_slug /tmp/wordpress
+  - mkdir -p /tmp/wordpress
+  - mv -R * /tmp/wordpress
+  - cd /tmp/wordpress
   - phpenv config-rm xdebug.ini
   - node --version
   - nvm install 4

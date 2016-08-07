@@ -23,7 +23,7 @@ module.exports = function( grunt ) {
 
 
 			codecoverage: {
-				command: 'ln -s $(which phpunit) phpunit && phpdbg -qrr phpunit -c codecoverage.xml --coverage-clover clover.xml',
+				command: 'cd ~ && phpdbg -qrr phpunit -c /tmp/wordpress/codecoverage.xml --coverage-clover clover.xml',
 				options: {
 					shell: '/bin/bash'
 				},

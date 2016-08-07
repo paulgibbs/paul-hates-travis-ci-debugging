@@ -27,7 +27,7 @@ module.exports = function( grunt ) {
 				}
 			},*/
 			codecoverage: {
-				cmd: 'echo phpdbg',
+				cmd: 'phpdbg',
 				args: ['-qrr', 'phpunit', '-c', 'codecoverage.xml', '--coverage-clover', 'clover.xml' ],
 				callback: function (error, stdout) {
 					grunt.log.write( 'codecoverage: ' + error + ' <--> ' + stdout );

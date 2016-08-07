@@ -12,7 +12,7 @@ module.exports = function( grunt ) {
 		},
 
 		exec: {
-			pathpath: {
+			/*pathpath: {
 				cmd: 'echo $PATH',
 				stdout: false,
 				callback: function (error, stdout) {
@@ -25,7 +25,7 @@ module.exports = function( grunt ) {
 				callback: function (error, stdout) {
 					grunt.log.write( 'which phpunit: ' + stdout );
 				}
-			},
+			},*/
 			codecoverage: {
 				cmd: 'echo phpdbg',
 				args: ['-qrr', 'phpunit', '-c', 'codecoverage.xml', '--coverage-clover', 'clover.xml' ],

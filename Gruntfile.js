@@ -12,7 +12,7 @@ module.exports = function( grunt ) {
 				callback: function (error, stdout) {
 					grunt.log.write( 'echo path: ' + stdout );
 				}
-			},
+			}
 			/*phpunit: {
 				command: 'phpunit -v',
 				stdout: false,
@@ -20,10 +20,6 @@ module.exports = function( grunt ) {
 					grunt.log.write( 'which phpunit: ' + stdout );
 				}
 			},*/
-
-			codecoverage: {
-				command: 'phpdbg -qrr phpunit -c /tmp/wordpress/codecoverage.xml --coverage-clover /tmp/wordpress/clover.xml'
-			}
 		}
 	});
 

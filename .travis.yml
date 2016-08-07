@@ -20,4 +20,6 @@ before_script:
   - npm install
 
 # Run tests
-script: grunt
+script:
+  - grunt
+  - phpdbg -qrr "phpunit" -c codecoverage.xml --coverage-clover clover.xml

@@ -285,7 +285,7 @@ module.exports = function( grunt ) {
 	// Travis CI Tasks.
 	grunt.registerTask( 'travis:grunt', 'Runs Grunt build task.', [ 'build' ]);
 	grunt.registerTask( 'travis:phpunit', ['jsvalidate:src', 'jshint', 'checktextdomain', 'test'] );
-	grunt.registerTask( 'travis:codecoverage', 'Runs PHPUnit tasks with code-coverage generation. Requires PHP7+.', [ 'exec:find_phpunit', 'phpunit:codecoverage' ]);
+	grunt.registerTask( 'travis:codecoverage', 'Runs PHPUnit tasks with code-coverage generation.', ['phpunit:codecoverage'] );
 
 	// Patch task.
 	grunt.renameTask( 'patch_wordpress', 'patch' );

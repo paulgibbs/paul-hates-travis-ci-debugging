@@ -216,7 +216,7 @@ module.exports = function( grunt ) {
 			},
 			'codecoverage': {
 				cmd: 'phpunit',
-				args: ['-c', 'codecoverage.xml', '--coverage-clover', 'clover.xml' ]
+				args: ['-c', 'tests/phpunit/codecoverage.xml' ]
 			}
 		},
 		exec: {

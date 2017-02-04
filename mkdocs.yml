@@ -2,13 +2,12 @@
 site_name: 'WordHat'
 site_description: 'WordHat is a Behat extension, providing WordPress-specific functionality for common testing scenarios specific to WordPress sites.'
 site_author: 'Paul Gibbs'
-site_url: 'https://wordhat.info/'
 site_favicon: img/favicon.png
 copyright: 'Copyright &copy; 2016-present, Paul Gibbs'
 
 # Repository
 repo_name: 'WordHat'
-repo_url: 'https://github.com/paulgibbs/behat-wordpress-extension'
+repo_url: 'https://github.com/paulgibbs/paul-hates-travis-ci-debugging'
 edit_uri: null
 
 # Options
@@ -22,7 +21,7 @@ extra:
     code: 'Consolas, Monaco, monospace'
   social:
     - type: 'github'
-      link: 'https://github.com/paulgibbs/behat-wordpress-extension'
+      link: 'https://github.com/paulgibbs/paul-hates-travis-ci-debugging'
     - type: 'twitter'
       link: 'https://twitter.com/pgibbs'
 extra_css:

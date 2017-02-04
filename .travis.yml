@@ -1,36 +1,74 @@
-# Travis CI Configuration File
-
-# Use new Travis container-based infrastructure
-# http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
-
 language: php
 
-#cache:
-#  apt: true
-#  directories:
-#    - /tmp/wordpress/src/wp-content/plugins/buddypress/node_modules
-
 php:
-  - 7.0
+  - 5.6
+  - 7.1
 
-# WordPress comes from the Git mirror, where 'master' mirrors svn 'trunk' and
-# x.y mirrors the latest from the x.y branch
+cache:
+  apt: true
+  pip: true
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
 env:
-  - WP_VERSION=master BP_TRAVISCI=travis:phpunit
+  global:
+    - GIT_NAME: "'Couscous auto deploy'"
+    - GIT_EMAIL: couscous@couscous.io
+    - GH_REF: github.com/paulgibbs/behat-wordpress-extension
+    - secure: RDArf/FuQFEz0O5n9NnWq9efe8tOH8eQIH28rNhSGA1lZ57zo2+3fU6QRvZrvW4fb7bIN6cvZSlOnsO3RYrf/UUwPSItjn9Jiia1wo70iqvdWw9VRtZ7YWysHkxi3tfEhIoBkHJMXJ7xhPrGg/qAevuoXWAkuocRUg370Fpe1oyMT6FC9brCsfgt6kJeCDEjeRrxUVCaozpTpX8/K/Glfu2lU8jiF6U5GvoT8+fzVsAgs/zJz9CoJcAzhWl/b2UrF5H2pqd6LoNad93NM5c5sG69E3VtuxO0ahECk1d2FttL6cEeSXM81ZRO4tRXfUfkvLu43kRVdNSYdRlD+XjQ2s+GcNvVMvmS/kun19rOxxlf+rgbYMcVoENC/DsSu0Qvk/y++POJHNLVwPECAviHK1qEgvdhMMsN87lh/op0aDLB1mKIYj4DbF5gHt4d16QfAJVTx8SeYbqRJrbHHXcRG3HHWwPp5mxWUoknvAkZgWRqZgByXdW1oB81qqqDZ42L1iGCmjufDYF6gw9dzaUERJzO/EmgS6dqeflUJIYxjn8bNrrCwEvYOTFNElHg78M/hUs046i4Ui9xd1kJUhEKduX9HoLalfzTwF+qAz+lEHOGXkIs/1hWB6UhacggnWPj7/GPXi4OgWwPPgJuHJ+MfmO/frXx3h/mYTx8OzMv8NU=
+  matrix:
+    - WP_VERSION=latest BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpapi"}}}'
+    - WP_VERSION=latest BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpcli","wpcli":{"binary":"%paths.base%/../../vendor/bin/wp"}}}}'
+    - WP_VERSION=nightly BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpapi"}}}'
+    - WP_VERSION=nightly BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpcli","wpcli":{"binary":"%paths.base%/../../vendor/bin/wp"}}}}'
 
 matrix:
-  fast_finish: true
-  include:
-    - env: WP_VERSION=master BP_TRAVISCI=travis:codecoverage
-      php: 7.0
   allow_failures:
-    - env: WP_VERSION=master BP_TRAVISCI=travis:codecoverage
+    - env: WP_VERSION=nightly BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpapi"}}}'
+    - env: WP_VERSION=nightly BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpcli","wpcli":{"binary":"%paths.base%/../../vendor/bin/wp"}}}}'
 
-# before_install: Failures in this section will result in build status 'errored'
+addons:
+  apt:
+    packages:
+      - nginx
+  hosts:
+    - wordpress.dev
+
 before_install:
-  - python --version
-  - pip --version
+  # Execute all of the commands which need to be executed before installing dependencies.
+  - composer self-update
+  - composer validate
+  - phpenv config-rm xdebug.ini
+  - export WH_DIR=$(pwd)
+  - export WH_NGINX_DIR=/tmp
+  - export WH_WORDPRESS_DIR="$WH_DIR/www/"
 
-notifications:
-  email: false
+install:
+  # Install all of the dependencies you need here.
+  - composer install --no-interaction --prefer-dist --no-progress
+  - pip install --user pymdown-extensions pygments mkdocs mkdocs-material
+  - bin/travis/wordpress.sh wordpress root '' localhost $WP_VERSION
+  - bin/travis/nginx.sh
+
+before_script:
+  # Execute all of the commands which need to be executed before running actual tests.
+  - bin/travis/selenium.sh
+
+script:
+  # Execute all of the commands which should make the build pass or fail.
+  - find ./src -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+  - vendor/bin/phpcs --standard=phpcs-ruleset.xml -p -s -v -n src --extensions=php
+  - vendor/bin/behat --config ./bin/travis/behat.yml
+
+after_success:
+  # Update document website after succesful tests.
+  - if [[ "$WP_VERSION" = "latest" && "$TRAVIS_PHP_VERSION" = "7.1" ]] ; then echo 'TESTING'; fi
+
+after_script:
+  # Tidy up after test run.
+  # See https://github.com/travis-ci/travis-ci/issues/6861
+  - kill -9 $(ps aux | grep 'selenium' | awk '{print $2}')
+  - kill -9 $(ps aux | grep 'java' | awk '{print $2}')
+  - kill -9 $(ps aux | grep 'Xvfb' | awk '{print $2}')

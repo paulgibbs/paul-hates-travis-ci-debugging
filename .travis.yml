@@ -24,4 +24,4 @@ install:
   - echo $TRAVIS_PHP_VERSION;
   - if [[ "$TRAVIS_PULL_REQUEST" = "false" && "$WH_BUILD_DOCS" = "1" && "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PHP_VERSION" = "7.1" ]] ; then sudo -H pip install --upgrade pip && sudo -H pip install --upgrade pymdown-extensions pygments mkdocs mkdocs-material; fi
   - which mkdocs
-  - ls -la ~/.local/bin/
+  - mkdocs -V

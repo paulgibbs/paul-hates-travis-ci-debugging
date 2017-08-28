@@ -75,6 +75,7 @@ before_install:
     else
       echo "We are running codecoverage or xdebug.ini does not exist"
     fi
+
   # set up tests config
   - cd $WP_DEVELOP_DIR
   - echo $WP_DEVELOP_DIR
@@ -82,14 +83,18 @@ before_install:
   - sed -i "s/youremptytestdbnamehere/wordpress_test/" wp-tests-config.php
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
+
   # set up database
   - mysql -e 'CREATE DATABASE wordpress_test;' -uroot
+
   # prepare for running the tests
   - cd $plugin_dir
+
   # setup NodeJS version using NVM
   - node --version
   - nvm install 6
   - node --version
+  - npm config set prefix "/tmp/node_modules"
   - npm install -g grunt-cli
   - npm --version
   - mysql --version
@@ -108,7 +113,7 @@ before_script:
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.3" ]]; then composer global require --dev phpunit/phpunit ^4; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then composer global require --dev phpunit/phpunit ^5; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then composer global require --dev phpunit/phpunit ^6; fi
-  - npm install --prefix /tmp/node_modules
+  - npm install
 
 # Run tests
 script: grunt $BP_TRAVISCI

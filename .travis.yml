@@ -13,6 +13,7 @@ cache:
   directories:
     - vendor
     - $HOME/.composer/cache
+    - $HOME/.npm
     - /tmp/node_modules
 
 git:
@@ -97,7 +98,7 @@ before_install:
   - npm config set prefix "/tmp/node"
   - npm config set global true
   - export PATH="$HOME/.composer/vendor/bin:/tmp/node/bin:$PATH"
-  - npm install grunt-cli
+  - npm install -g grunt-cli
   - npm --version
   - mysql --version
   - phpenv versions

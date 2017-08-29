@@ -120,7 +120,7 @@ before_script:
 # Run tests
 script:
   - ls -la /tmp/node
-  - ls -la /tmp/node/bin
+  - ls -la /tmp/node/.bin
   - grunt $BP_TRAVISCI
 
 after_script:

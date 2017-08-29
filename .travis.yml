@@ -121,8 +121,6 @@ before_script:
 
 # Run tests
 script:
-  - ls -la /tmp/node/node_modules
-  - ls -la $plugin_dir
   - grunt $BP_TRAVISCI
 
 after_script:

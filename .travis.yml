@@ -121,7 +121,9 @@ before_script:
 script:
   - ls -la /tmp/node
   - ls -la /tmp/node/bin
-  - /tmp/node/bin/grunt $BP_TRAVISCI
+  - ln -s /tmp/node/lib/node_modules ./node_modules
+  - ls -la .
+  - grunt $BP_TRAVISCI
 
 after_script:
 - |

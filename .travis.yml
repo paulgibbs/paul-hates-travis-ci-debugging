@@ -92,13 +92,13 @@ before_install:
   - cd $plugin_dir
 
   # setup NodeJS version using NVM
+  - export PATH="$HOME/.composer/vendor/bin:/tmp/node/bin:$PATH"
   - node --version
   - nvm install 6
   - node --version
   - npm config set prefix "/tmp/node"
   - npm config set global true
-  - export PATH="$HOME/.composer/vendor/bin:/tmp/node/bin:$PATH"
-  - npm install -g grunt-cli
+  - npm install grunt-cli
   - npm --version
   - mysql --version
   - phpenv versions
@@ -118,7 +118,9 @@ before_script:
   - npm install
 
 # Run tests
-script: grunt $BP_TRAVISCI
+script:
+  - echo $PATH
+  - grunt $BP_TRAVISCI
 
 after_script:
 - |

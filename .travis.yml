@@ -14,7 +14,7 @@ cache:
     - vendor
     - $HOME/.composer/cache
     - $HOME/.npm
-    - /tmp/node_modules
+    - /tmp/node
 
 git:
   depth: 1
@@ -92,7 +92,7 @@ before_install:
   - cd $plugin_dir
 
   # setup NodeJS version using NVM
-  - export PATH="$HOME/.composer/vendor/bin:/tmp/node/bin:$PATH"
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - node --version
   - nvm install 6
   - node --version

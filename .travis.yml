@@ -116,14 +116,13 @@ before_script:
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then composer global require --dev phpunit/phpunit ^5; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then composer global require --dev phpunit/phpunit ^6; fi
   - mkdir -p /tmp/node/node_modules
-  - ln -s $plugin_dir/node_modules /tmp/node/node_modules
+  - ln -s /tmp/node/node_modules $plugin_dir/node_modules
   - npm install
 
 # Run tests
 script:
   - ls -la /tmp/node/node_modules
   - ls -la $plugin_dir
-  - ls -la $plugin_dir/node_modules
   - grunt $BP_TRAVISCI
 
 after_script:

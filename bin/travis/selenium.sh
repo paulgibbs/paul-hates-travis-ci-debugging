@@ -8,14 +8,14 @@ NAP_LENGTH=1
 
 # Wait for a specific port to respond to connections.
 wait_for_port() {
-  while echo | telnet localhost 4444 2>&1 | grep -qe 'Connection refused'; do
+  while echo | telnet 127.0.0.1 4444 2>&1 | grep -qe 'Connection refused'; do
     echo "Connection refused on port 4444. Waiting $NAP_LENGTH seconds..."
     sleep $NAP_LENGTH
   done
 }
 
 export DISPLAY=:99.0
-Xvfb > /dev/null 2>&1 &
+sh -e /etc/init.d/xvfb start
 sleep 1
 
 php -r 'require "vendor/joomla-projects/selenium-server-standalone/Selenium.php";

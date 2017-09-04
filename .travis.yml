@@ -27,7 +27,7 @@ addons:
   apt:
     packages:
       - nginx
-  firefox: "46.0"
+  chrome: stable
   hosts:
     - wordpress.dev
 

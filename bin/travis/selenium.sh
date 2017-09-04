@@ -21,7 +21,7 @@ sleep 1
 php -r 'require "vendor/joomla-projects/selenium-server-standalone/Selenium.php";
 $selenium = new Selenium(["browser" => "chrome", "selenium_params" => [" -Dselenium.LOGGER.level=OFF"] ]);
 $selenium->run();';
-ps -ewwo pid,etime,comand
+ps -ewwo pid,etime,command
 
 wait_for_port
 sleep 5

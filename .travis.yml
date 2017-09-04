@@ -1,6 +1,5 @@
-dist: trusty
-language: php
 sudo: false
+language: php
 
 php:
   - 5.6
@@ -25,10 +24,10 @@ matrix:
     - env: WP_VERSION=nightly BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpcli","wpcli":{"binary":"%paths.base%/../../vendor/bin/wp"}}}}'
 
 addons:
-  chrome: stable
   apt:
     packages:
       - nginx
+  firefox: "46.0"
   hosts:
     - wordpress.dev
 

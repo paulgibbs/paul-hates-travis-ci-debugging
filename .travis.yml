@@ -6,9 +6,6 @@ php:
   - 7.0
   - 7.1
 
-addons:
-  firefox: latest
-
 cache:
   apt: true
   directories:
@@ -27,6 +24,7 @@ matrix:
     - env: WP_VERSION=nightly BEHAT_PARAMS='{"extensions":{"PaulGibbs\\WordpressBehatExtension":{"default_driver":"wpcli","wpcli":{"binary":"%paths.base%/../../vendor/bin/wp"}}}}'
 
 addons:
+  firefox: latest
   apt:
     packages:
       - nginx

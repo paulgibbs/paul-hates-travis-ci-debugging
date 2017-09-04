@@ -118,7 +118,6 @@ class WpcliDriver extends BaseDriver
             $config = "@{$this->alias}";
         }
 
-        echo "{$this->binary} {$config} --no-color {$command} {$subcommand} {$arguments}";
         // Query WP-CLI.
         $proc = proc_open(
             "{$this->binary} {$config} --no-color {$command} {$subcommand} {$arguments}",
@@ -132,6 +131,7 @@ class WpcliDriver extends BaseDriver
         fclose($pipes[1]);
         $exit_code = proc_close($proc);
 
+        echo 'Response: [' . $exit_code . '], ' . $stdout;
         if ($exit_code || strpos($stdout, 'Warning: ') === 0 || strpos($stdout, 'Error: ') === 0) {
             throw new UnexpectedValueException(
                 sprintf(

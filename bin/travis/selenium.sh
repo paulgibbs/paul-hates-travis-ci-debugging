@@ -17,13 +17,16 @@ wait_for_port() {
   done
 }
 
-rm -f /tmp/.X0-lock
-Xvfb > /dev/null 2>&1 &
-export DISPLAY=localhost:0.0
+export DISPLAY=:99.0
+sh -e /etc/init.d/xvfb start
+sleep 5
 
 # Start Selenium
 wget -O selenium.jar https://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
 java -jar selenium.jar -port $SELENIUM_PORT > /dev/null 2>&1 &
 wait_for_port $SELENIUM_PORT
+
+# Start Chrome.
+google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
 
 sleep 5

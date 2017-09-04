@@ -131,7 +131,9 @@ class WpcliDriver extends BaseDriver
         fclose($pipes[1]);
         $exit_code = proc_close($proc);
 
-        echo 'Response: [' . $exit_code . '], ' . $stdout;
+        echo 'Response: [' . $exit_code . '], ' . $stdout . PHP_EOL;
+        echo print_r( get_headers($this->url), true );
+
         if ($exit_code || strpos($stdout, 'Warning: ') === 0 || strpos($stdout, 'Error: ') === 0) {
             throw new UnexpectedValueException(
                 sprintf(

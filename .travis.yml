@@ -7,7 +7,7 @@ php:
   - 7.1
 
 addons:
-  firefox: "55.0"
+  firefox: latest
 
 cache:
   apt: true

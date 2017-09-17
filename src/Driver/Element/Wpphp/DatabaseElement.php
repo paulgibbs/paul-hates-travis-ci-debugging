@@ -34,6 +34,7 @@ class DatabaseElement extends BaseElement
         );
 
         // Export DB via mysqldump.
+        echo "/usr/bin/env mysqldump {$command_args}";
         $proc = proc_open(
             "/usr/bin/env mysqldump {$command_args}",
             array(

@@ -33,34 +33,31 @@ class DatabaseElement extends BaseElement
             escapeshellarg(DB_PASSWORD)
         );
 
-        echo "/usr/bin/env mysqldump {$command_args}";
+        // Export DB via mysqldump.
         $proc = proc_open(
             "/usr/bin/env mysqldump {$command_args}",
             array(
                 1 => ['pipe', 'w'],
-                2 => ['pipe', 'w'],
             ),
             $pipes
         );
 
         $stdout = trim(stream_get_contents($pipes[1]));
-        $stderr = trim(stream_get_contents($pipes[2]));
         fclose($pipes[1]);
-        fclose($pipes[2]);
         $exit_code = proc_close($proc);
 
         if ($exit_code || $stderr) {
             throw new RuntimeException(
                 sprintf(
-                    "WP-PHP driver failure in database export for method %1\$s(): \n\t%2\$s\n(%3\$s)",
+                    "WP-PHP driver failure in database export for method %1\$s(): \n%2\$s\n(%3\$s)",
                     debug_backtrace()[1]['function'],
-                    $stderr ?: $stdout,
+                    $stdout,
                     $exit_code
                 )
             );
         }
 
-        return $stdout;
+        return compact('stdout', 'exit_code');
     }
 
     /**

@@ -139,6 +139,8 @@ class WordpressContext extends RawWordpressContext
             return;
         }
 
+        echo 'THE WOLF OF THE DOOR: ';
+        print_r($file);
         $this->importDatabase(['path' => $file]);
     }
 

@@ -72,6 +72,10 @@ class DatabaseElement extends BaseElement
      */
     public function update($id, $args = [])
     {
+        echo 'YOLO ';
+        echo $id;
+        echo 'YOLO ';
+        print_r($args);
         $command_args = sprintf(
             '--no-defaults --no-auto-rehash --host=%1$s --user=%2$s --password=%3$s --database=%4$s --execute=%5$s',
             DB_HOST,
@@ -83,6 +87,9 @@ class DatabaseElement extends BaseElement
                 $args['path']
             ))
         );
+        echo 'YOLO ';
+        echo "/usr/bin/env mysql {$command_args}";
+        echo ' YOLOd.';
 
         $old_pwd = getenv('MYSQL_PWD');
         putenv('MYSQL_PWD=' . DB_PASSWORD);

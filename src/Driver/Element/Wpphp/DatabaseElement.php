@@ -11,6 +11,7 @@ class DatabaseElement extends BaseElement
 {
     /**
      * Export site database.
+     * THIS ONLY WORKKS ON NOT WINDOWS
      *
      * @param int   $id   Not used.
      * @param array $args
@@ -25,13 +26,16 @@ class DatabaseElement extends BaseElement
 
         $path         = tempnam($args['path'], 'wordhat');
         $command_args = sprintf(
-            '--no-defaults %1$s --add-drop-table --result-file=%2$s --host=%3$s --user=%4$s --password=%5$s',
+            '--no-defaults %1$s --add-drop-table --result-file=%2$s --host=%3$s --user=%4$s',
             DB_NAME,
             escapeshellarg($path),
             escapeshellarg(DB_HOST),
-            escapeshellarg(DB_USER),
+            escapeshellarg(DB_USER)
             escapeshellarg(DB_PASSWORD)
         );
+
+        $old_pass = getenv('MYSQL_PWD');
+        putenv('MYSQL_PWD=' . DB_PASSWORD);
 
         // Export DB via mysqldump.
         $proc = proc_open(
@@ -45,6 +49,7 @@ class DatabaseElement extends BaseElement
         $stdout = trim(stream_get_contents($pipes[1]));
         fclose($pipes[1]);
         $exit_code = proc_close($proc);
+        putenv('MYSQL_PWD=' . $old_pass);
 
         if ($exit_code || strpos($stdout, 'Warning: ') === 0 || strpos($stdout, 'Error: ') === 0) {
             throw new RuntimeException(
@@ -84,23 +89,20 @@ class DatabaseElement extends BaseElement
             "/usr/bin/env mysql {$command_args}",
             array(
                 1 => ['pipe', 'w'],
-                2 => ['pipe', 'w'],
             ),
             $pipes
         );
 
         $stdout = trim(stream_get_contents($pipes[1]));
-        $stderr = trim(stream_get_contents($pipes[2]));
         fclose($pipes[1]);
-        fclose($pipes[2]);
         $exit_code = proc_close($proc);
 
-        if ($exit_code || $stderr) {
+        if ($exit_code || strpos($stdout, 'Warning: ') === 0 || strpos($stdout, 'Error: ') === 0) {
             throw new RuntimeException(
                 sprintf(
-                    "WP-PHP driver failure in database import for method %1\$s(): \n\t%2\$s\n(%3\$s)",
+                    "WP-PHP driver failure in database import for method %1\$s(): \n%2\$s\n(%3\$s)",
                     debug_backtrace()[1]['function'],
-                    $stderr ?: $stdout,
+                    $stdout,
                     $exit_code
                 )
             );

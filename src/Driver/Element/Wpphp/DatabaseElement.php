@@ -31,7 +31,6 @@ class DatabaseElement extends BaseElement
             escapeshellarg($path),
             escapeshellarg(DB_HOST),
             escapeshellarg(DB_USER)
-            escapeshellarg(DB_PASSWORD)
         );
 
         $old_pass = getenv('MYSQL_PWD');

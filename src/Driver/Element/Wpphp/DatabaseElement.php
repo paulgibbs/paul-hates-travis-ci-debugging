@@ -46,7 +46,7 @@ class DatabaseElement extends BaseElement
         fclose($pipes[1]);
         $exit_code = proc_close($proc);
 
-        if ($exit_code || $stderr) {
+        if ($exit_code || strpos($stdout, 'Warning: ') === 0 || strpos($stdout, 'Error: ') === 0) {
             throw new RuntimeException(
                 sprintf(
                     "WP-PHP driver failure in database export for method %1\$s(): \n%2\$s\n(%3\$s)",

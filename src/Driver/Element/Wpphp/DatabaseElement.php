@@ -33,6 +33,7 @@ class DatabaseElement extends BaseElement
             escapeshellarg(DB_PASSWORD)
         );
 
+        echo "/usr/bin/env mysqldump {$command_args}";
         $proc = proc_open(
             "/usr/bin/env mysqldump {$command_args}",
             array(

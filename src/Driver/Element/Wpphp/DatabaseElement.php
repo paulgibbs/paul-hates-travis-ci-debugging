@@ -61,7 +61,7 @@ class DatabaseElement extends BaseElement
             );
         }
 
-        return compact('stdout', 'exit_code');
+        return $path;
     }
 
     /**

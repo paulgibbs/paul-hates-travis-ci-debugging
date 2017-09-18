@@ -67,7 +67,7 @@ class WordpressContext extends RawWordpressContext
         echo 'loony tunes';
         print_r($file);
         // Note: $file may be either an absolute OR relative file path.
-        $this->getWordpress()->setSetting('database_backup_file', $file['stdout']);
+        $this->getWordpress()->setSetting('database_backup_file', $file);
     }
 
     /**

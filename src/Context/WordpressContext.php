@@ -65,7 +65,7 @@ class WordpressContext extends RawWordpressContext
         }
 
         // Note: $file may be either an absolute OR relative file path.
-        $this->getWordpress()->setSetting('database_backup_file', $file);
+        $this->getWordpress()->setSetting('database_backup_file', $file['stdout']);
     }
 
     /**
